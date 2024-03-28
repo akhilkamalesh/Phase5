@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Portal</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f7f7f7;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .patient-info {
+            text-align: right;
+        }
+
+        .patient-info h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+
+        .doctor-info, .hospital-location {
+            margin-bottom: 30px;
+        }
+
+        .info-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-list li {
+            margin-bottom: 5px;
+        }
+
+        .info-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-list li span {
+            font-weight: bold;
+        }
+
+        .footer {
+            text-align: center;
+            color: #666;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Patient Portal</h1>
+            <div class="patient-info">
+                <h2>Patient Information</h2>
+                <p><strong>Name:</strong> John Doe</p>
+                <p><strong>Age:</strong> 35</p>
+                <p><strong>Gender:</strong> Male</p>
+                <p><strong>DOB:</strong> 01/01/1989</p>
+            </div>
+        </div>
+        
+        <div class="doctor-info">
+            <h3 class="info-title">Doctor Information</h3>
+            <ul class="info-list">
+                <li><span>Name:</span> Dr. Jane Smith</li>
+                <li><span>Specialty:</span> Cardiology</li>
+                <li><span>Contact:</span> +123-456-7890</li>
+            </ul>
+        </div>
+        
+        <div class="hospital-location">
+            <h3 class="info-title">Hospital Location</h3>
+            <ul class="info-list">
+                <li><span>Name:</span> City Hospital</li>
+                <li><span>Address:</span> 123 Main St, City, Country</li>
+                <li><span>Contact:</span> +987-654-3210</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>&copy; 2024 Patient Portal. All rights reserved.</p>
+    </div>
+</body>
+</html>

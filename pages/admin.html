@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Healthcare Admin Panel</title>
+</head>
+<body>
+    <h1>Healthcare Admin Panel</h1>
+    
+    <!-- Patients CRUD -->
+    <h2>Patients</h2>
+    <form id="patientForm">
+        <label for="patientUID">UID:</label>
+        <input type="text" id="patientUID" name="patientUID"><br>
+        <label for="patientFirstname">First Name:</label>
+        <input type="text" id="patientFirstname" name="patientFirstname"><br>
+        <label for="patientLastname">Last Name:</label>
+        <input type="text" id="patientLastname" name="patientLastname"><br>
+        <label for="patientAge">Age:</label>
+        <input type="number" id="patientAge" name="patientAge"><br>
+        <label for="patientDoctorID">Doctor ID:</label>
+        <input type="text" id="patientDoctorID" name="patientDoctorID"><br>
+        <button type="button" onclick="addPatient()">Add Patient</button>
+    </form>
+    <div id="patientList"></div>
+    
+    <!-- Doctors CRUD -->
+    <h2>Doctors</h2>
+    <form id="doctorForm">
+        <label for="doctorID">Doctor ID:</label>
+        <input type="text" id="doctorID" name="doctorID"><br>
+        <label for="doctorFirstname">First Name:</label>
+        <input type="text" id="doctorFirstname" name="doctorFirstname"><br>
+        <label for="doctorLastname">Last Name:</label>
+        <input type="text" id="doctorLastname" name="doctorLastname"><br>
+        <label for="doctorHospitalID">Hospital ID:</label>
+        <input type="text" id="doctorHospitalID" name="doctorHospitalID"><br>
+        <button type="button" onclick="addDoctor()">Add Doctor</button>
+    </form>
+    <div id="doctorList"></div>
+    
+    <!-- Hospitals CRUD -->
+    <h2>Hospitals</h2>
+    <form id="hospitalForm">
+        <label for="hospitalID">Hospital ID:</label>
+        <input type="text" id="hospitalID" name="hospitalID"><br>
+        <label for="hospitalCountryID">Country ID:</label>
+        <input type="text" id="hospitalCountryID" name="hospitalCountryID"><br>
+        <label for="hospitalName">Name:</label>
+        <input type="text" id="hospitalName" name="hospitalName"><br>
+        <label for="hospitalGeolocation">Geolocation:</label>
+        <input type="text" id="hospitalGeolocation" name="hospitalGeolocation"><br>
+        <label for="hospitalCapacity">Capacity:</label>
+        <input type="number" id="hospitalCapacity" name="hospitalCapacity"><br>
+        <button type="button" onclick="addHospital()">Add Hospital</button>
+    </form>
+    <div id="hospitalList"></div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        // Functions to handle CRUD operations
+        
+    // Add a new patient    
+    // Add a new patient
+    function addPatient() {
+        var patientUID = document.getElementById("patientUID").value;
+        var patientFirstname = document.getElementById("patientFirstname").value;
+        var patientLastname = document.getElementById("patientLastname").value;
+        var patientAge = document.getElementById("patientAge").value;
+        var patientDoctorID = document.getElementById("patientDoctorID").value;
+        
+        var patientData = {
+            patientUID: patientUID,
+            patientFirstname: patientFirstname,
+            patientLastname: patientLastname,
+            patientAge: patientAge,
+            patientDoctorID: patientDoctorID
+        };
+
+        $.ajax({
+            url: "/admin",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(patientData),
+            success: function(response) {
+                console.log("New Patient Added:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error adding patient:", error);
+            }
+        });
+
+        console.log("New Patient Added:", patientData);
+    }
+
+        
+        // Add a new doctor
+        function addDoctor() {
+            var doctorID = document.getElementById("doctorID").value;
+            var doctorFirstname = document.getElementById("doctorFirstname").value;
+            var doctorLastname = document.getElementById("doctorLastname").value;
+            var doctorHospitalID = document.getElementById("doctorHospitalID").value;
+
+            
+            
+            // Add doctor to database or perform necessary action
+            
+            console.log("New Doctor Added:", {
+                Doctor_ID: doctorID,
+                Firstname: doctorFirstname,
+                Lastname: doctorLastname,
+                Hospital_ID: doctorHospitalID
+            });
+        }
+        
+        // Add a new hospital
+        function addHospital() {
+            var hospitalID = document.getElementById("hospitalID").value;
+            var hospitalCountryID = document.getElementById("hospitalCountryID").value;
+            var hospitalName = document.getElementById("hospitalName").value;
+            var hospitalGeolocation = document.getElementById("hospitalGeolocation").value;
+            var hospitalCapacity = document.getElementById("hospitalCapacity").value;
+            
+            // Add hospital to database or perform necessary action
+            
+            console.log("New Hospital Added:", {
+                Hospital_ID: hospitalID,
+                Country_ID: hospitalCountryID,
+                Name: hospitalName,
+                Geolocation: hospitalGeolocation,
+                Capacity: hospitalCapacity
+            });
+        }
+    </script>
+</body>
+</html>
