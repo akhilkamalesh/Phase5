@@ -99,7 +99,7 @@ def createentity(mydb, data):
     elif data_dict['type'] == 'hospital':
 
         if(data_dict['hospitalCountryID'] == ''):
-            
+
             mycursor.execute("insert into `hospitals` values (%s, NULL, %s, %s, %s)", (data_dict['hospitalID'],
                                                                                 data_dict['hospitalName'],
                                                                                 data_dict['hospitalGeolocation'],
@@ -114,3 +114,22 @@ def createentity(mydb, data):
 
     mydb.commit()
     return 'complete'
+
+def deleteentity(mydb, data):
+    data_string = data.decode('utf-8')
+    data_dict = json.loads(data_string)
+    print(data_dict)
+    mycursor = mydb.cursor()
+
+    if data_dict['type'] == 'patient':
+        mycursor.execute('DELETE from `patients` where Patient_ID = (%s)', (data_dict['patientID'], ))
+
+    elif data_dict['type'] == 'doctor':
+        mycursor.execute('DELETE from `doctors` where Doctor_ID = (%s)', (data_dict['doctorID'], ))
+    
+    elif data_dict['type'] == 'hospital':
+        mycursor.execute('DELETE from `hospitals` where Hospital_ID = (%s)', (data_dict['hospitalId'], ))
+
+    mydb.commit()
+    return 'complete'
+

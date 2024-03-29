@@ -24,6 +24,13 @@
         <button type="button" onclick="addPatient()">Add Patient</button>
     </form>
     <div id="patientList"></div>
+    <h3>Delete Patient</h3>
+    <form id="deletePatientForm">
+        <label for="deletePatientID">Patient ID:</label>
+        <input type="text" id="deletePatientID" name="deletePatientID"><br>
+        <button type="button" onclick="deletePatient()">Delete Patient</button>
+    </form>
+
     
     <!-- Doctors CRUD -->
     <h2>Doctors</h2>
@@ -39,6 +46,12 @@
         <button type="button" onclick="addDoctor()">Add Doctor</button>
     </form>
     <div id="doctorList"></div>
+    <h3>Delete Doctor</h3>
+    <form id="deleteDoctorForm">
+        <label for="deleteDoctorID">Doctor ID:</label>
+        <input type="text" id="deleteDoctorID" name="deleteDoctorID"><br>
+        <button type="button" onclick="deleteDoctor()">Delete Doctor</button>
+    </form>
     
     <!-- Hospitals CRUD -->
     <h2>Hospitals</h2>
@@ -55,6 +68,13 @@
         <input type="number" id="hospitalCapacity" name="hospitalCapacity"><br>
         <button type="button" onclick="addHospital()">Add Hospital</button>
     </form>
+    <h3>Delete Hospital</h3>
+    <form id="deleteHospitalForm">
+        <label for="deleteHospitalID">Hospital ID:</label>
+        <input type="text" id="deleteHospitalID" name="deleteHospitalID"><br>
+        <button type="button" onclick="deleteHospital()">Delete Hospital</button>
+    </form>
+
     <div id="hospitalList"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script>
@@ -95,6 +115,30 @@
         console.log("New Patient Added:", patientData);
     }
 
+    // Delete a patient
+    function deletePatient() {
+        var patientID = $("#deletePatientID").val();
+
+        var patientData = {
+            type: "patient",
+            patientID: patientID
+        }
+        
+        // Send AJAX DELETE request to delete a patient
+        $.ajax({
+            type: "DELETE",
+            url: "/admin",
+            contentType: "application/json",
+            data: JSON.stringify(patientData),
+            success: function(response) {
+                console.log("Patient Deleted:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error deleting patient:", error);
+            }
+        });
+    }
+
         
         // Add a new doctor
         function addDoctor() {
@@ -124,12 +168,35 @@
                 console.error("Error adding patient:", error);
             }
         });
-            
             // Add doctor to database or perform necessary action
             
             console.log("New Doctor Added:", doctorInfo);
         }
-        
+
+        // Delete a doctor
+        function deleteDoctor() {
+            var doctorID = $("#deleteDoctorID").val();
+
+            var doctorData = {
+                type: "doctor",
+                doctorID: doctorID // Corrected variable name here
+            }
+            
+            // Send AJAX DELETE request to delete a doctor
+            $.ajax({
+                type: "DELETE",
+                url: "/admin",
+                contentType: "application/json",
+                data: JSON.stringify(doctorData),
+                success: function(response) {
+                    console.log("Doctor Deleted:", response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error deleting doctor:", error);
+                }
+            });
+        }
+                
         // Add a new hospital
         function addHospital() {
             var hospitalID = document.getElementById("hospitalID").value;
@@ -168,6 +235,30 @@
                 Name: hospitalName,
                 Geolocation: hospitalGeolocation,
                 Capacity: hospitalCapacity
+            });
+        }
+
+        // Delete a patient
+        function deleteHospital() {
+            var hospitalId = $("#deleteHospitalID").val();
+
+            var hospitalData = {
+                type: "hospital",
+                hospitalId: hospitalId
+            }
+            
+            // Send AJAX DELETE request to delete a patient
+            $.ajax({
+                type: "DELETE",
+                url: "/admin",
+                contentType: "application/json",
+                data: JSON.stringify(hospitalData),
+                success: function(response) {
+                    console.log("Hospital Deleted:", response);
+                },
+                error: function(xhr, status, error) {
+                    console.error("Error deleting doctor:", error);
+                }
             });
         }
     </script>

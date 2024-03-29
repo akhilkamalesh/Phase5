@@ -39,6 +39,12 @@ def createentity():
    db.createentity(mydb, request.data)
    return render_template('admin.html')
 
+@app.route('/admin', methods=['DELETE'])
+def deleteentity():
+   print(request.data)
+   db.deleteentity(mydb, request.data)
+   return render_template('admin.html')
+
 # @app.route('/admin/createdoctor', methods=['POST'])
 # def createdoctor():
 #    db.createdoctor(mydb, request.data)
