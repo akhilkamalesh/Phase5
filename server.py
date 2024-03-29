@@ -34,9 +34,15 @@ def admin():
    return render_template('admin.html')
 
 @app.route('/admin', methods=['POST'])
-def createpatient():
-   db.createpatient(mydb, request.data)
+def createentity():
+   print(request.data)
+   db.createentity(mydb, request.data)
    return render_template('admin.html')
+
+# @app.route('/admin/createdoctor', methods=['POST'])
+# def createdoctor():
+#    db.createdoctor(mydb, request.data)
+#    return render_template('admin.html')
 
 
 if __name__ == '__main__':

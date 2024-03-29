@@ -70,12 +70,14 @@
         var patientDoctorID = document.getElementById("patientDoctorID").value;
         
         var patientData = {
+            type: "patient",
             patientUID: patientUID,
             patientFirstname: patientFirstname,
             patientLastname: patientLastname,
             patientAge: patientAge,
-            patientDoctorID: patientDoctorID
+            patientDoctorID: patientDoctorID,
         };
+
 
         $.ajax({
             url: "/admin",
@@ -101,16 +103,31 @@
             var doctorLastname = document.getElementById("doctorLastname").value;
             var doctorHospitalID = document.getElementById("doctorHospitalID").value;
 
+            var doctorInfo = {
+                type: "doctor", 
+                doctorId: doctorID, 
+                doctorFirstname: doctorFirstname, 
+                doctorLastname: doctorLastname, 
+                doctorHospitalID: doctorHospitalID
+            };
+
             
+            $.ajax({
+            url: "/admin",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(doctorInfo),
+            success: function(response) {
+                console.log("New Doctor Added:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error adding patient:", error);
+            }
+        });
             
             // Add doctor to database or perform necessary action
             
-            console.log("New Doctor Added:", {
-                Doctor_ID: doctorID,
-                Firstname: doctorFirstname,
-                Lastname: doctorLastname,
-                Hospital_ID: doctorHospitalID
-            });
+            console.log("New Doctor Added:", doctorInfo);
         }
         
         // Add a new hospital
@@ -120,6 +137,28 @@
             var hospitalName = document.getElementById("hospitalName").value;
             var hospitalGeolocation = document.getElementById("hospitalGeolocation").value;
             var hospitalCapacity = document.getElementById("hospitalCapacity").value;
+
+            var hospitalData = {
+                type: "hospital", 
+                hospitalID: hospitalID, 
+                hospitalCountryID: hospitalCountryID, 
+                hospitalName: hospitalName, 
+                hospitalGeolocation: hospitalGeolocation,
+                hospitalCapacity: hospitalCapacity
+            };
+
+            $.ajax({
+            url: "/admin",
+            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(hospitalData),
+            success: function(response) {
+                console.log("New Hospital Added:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error adding hospital:", error);
+            }
+        });
             
             // Add hospital to database or perform necessary action
             

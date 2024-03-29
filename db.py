@@ -34,28 +34,83 @@ def authenticate(mydb, uid, lastname):
          
      return 'None'
 
-def createpatient(mydb, data):
+# def createpatient(mydb, data):
+#     data_string = data.decode('utf-8')
+#     data_dict = json.loads(data_string)
+#     print(data_dict)
+#     mycursor = mydb.cursor()
+
+#     # Need to add error check to see if it exists in table
+
+#     if(data_dict['patientDoctorID'] == ''):
+#         mycursor.execute("insert into `patients` values (%s, %s, %s, %s, NULL)", (data_dict['patientUID'],
+#                                                                             data_dict['patientFirstname'],
+#                                                                             data_dict['patientLastname'],
+#                                                                             data_dict['patientAge']))
+#         mycursor.execute("select * from `patients`")
+#         for row in mycursor.fetchall():
+#             print(row)
+#     else:
+#         mycursor.execute("insert into `patients` values (%s, %s, %s, %s, %s)", (data_dict['patientUID'],
+#                                                                             data_dict['patientFirstname'],
+#                                                                             data_dict['patientLastname'],
+#                                                                             data_dict['patientAge'],
+#                                                                             data_dict['patientDoctorID']))
+#     mydb.commit()
+
+#     return 'complete'
+
+def createentity(mydb, data):
     data_string = data.decode('utf-8')
     data_dict = json.loads(data_string)
     print(data_dict)
     mycursor = mydb.cursor()
 
-    # Need to add error check to see if it exists in table
+    if data_dict['type'] == 'patient':
 
-    if(data_dict['patientDoctorID'] == ''):
-        mycursor.execute("insert into `patients` values (%s, %s, %s, %s, NULL)", (data_dict['patientUID'],
-                                                                            data_dict['patientFirstname'],
-                                                                            data_dict['patientLastname'],
-                                                                            data_dict['patientAge']))
-        mycursor.execute("select * from `patients`")
-        for row in mycursor.fetchall():
-            print(row)
-    else:
-        mycursor.execute("insert into `patients` values (%s, %s, %s, %s, %s)", (data_dict['patientUID'],
-                                                                            data_dict['patientFirstname'],
-                                                                            data_dict['patientLastname'],
-                                                                            data_dict['patientAge'],
-                                                                            data_dict['patientDoctorID']))
+        if(data_dict['patientDoctorID'] == ''):
+            mycursor.execute("insert into `patients` values (%s, %s, %s, %s, NULL)", (data_dict['patientUID'],
+                                                                                data_dict['patientFirstname'],
+                                                                                data_dict['patientLastname'],
+                                                                                data_dict['patientAge']))
+            mycursor.execute("select * from `patients`")
+            for row in mycursor.fetchall():
+                print(row)
+        else:
+            mycursor.execute("insert into `patients` values (%s, %s, %s, %s, %s)", (data_dict['patientUID'],
+                                                                                data_dict['patientFirstname'],
+                                                                                data_dict['patientLastname'],
+                                                                                data_dict['patientAge'],
+                                                                                data_dict['patientDoctorID']))
+    elif data_dict['type'] == 'doctor':
+
+        if(data_dict['doctorHospitalID'] == ''):
+            mycursor.execute("insert into `doctors` values (%s, %s, %s, NULL)", (data_dict['doctorId'],
+                                                                                data_dict['doctorFirstname'],
+                                                                                data_dict['doctorLastname']))
+            mycursor.execute("select * from `doctors`")
+            for row in mycursor.fetchall():
+                print(row)
+        else:
+            mycursor.execute("insert into `doctors` values (%s, %s, %s, %s)", (data_dict['doctorId'],
+                                                                                data_dict['doctorFirstname'],
+                                                                                data_dict['doctorLastname'],
+                                                                                data_dict['doctorHospitalID']))    
+    elif data_dict['type'] == 'hospital':
+
+        if(data_dict['hospitalCountryID'] == ''):
+            
+            mycursor.execute("insert into `hospitals` values (%s, NULL, %s, %s, %s)", (data_dict['hospitalID'],
+                                                                                data_dict['hospitalName'],
+                                                                                data_dict['hospitalGeolocation'],
+                                                                                data_dict['hospitalCapacity']))  
+        else:
+
+            mycursor.execute("insert into `hospitals` values (%s, %s, %s, %s, %s)", (data_dict['hospitalID'],
+                                                                                    data_dict['hospitalCountryID'],
+                                                                                    data_dict['hospitalName'],
+                                                                                    data_dict['hospitalGeolocation'],
+                                                                                    data_dict['hospitalCapacity'])) 
+
     mydb.commit()
-
     return 'complete'
