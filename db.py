@@ -133,3 +133,31 @@ def deleteentity(mydb, data):
     mydb.commit()
     return 'complete'
 
+
+def updateentity(mydb, data):
+   data_string = data.decode('utf-8')
+   data_dict = json.loads(data_string)
+   print(data_dict)
+   mycursor = mydb.cursor()
+
+   if data_dict['type'] == 'patient':
+       mycursor.execute('UPDATE patients SET patientFirstname = (%s), patientLastname = (%s), patientAge = (%s), patientDoctorID = (%s) WHERE user_account.name = Patient_ID = (%s)', (data_dict['patientFirstname'], 
+                                                                               data_dict['patientLastname'],
+                                                                               data_dict['patientAge'],
+                                                                               data_dict['patientDoctorID'], 
+                                                                               data_dict['patientUID']))
+
+   elif data_dict['type'] == 'doctor':
+       mycursor.execute('UPDATE doctors SET doctorFirstname = (%s), doctorLastname = (%s) WHERE user_account.name = Doctor_ID = (%s)', (data_dict['doctorFirstname'], 
+                                                                               data_dict['doctorLastname'],
+                                                                               data_dict['doctorId']))
+   
+   elif data_dict['type'] == 'hospital':
+       mycursor.execute('UPDATE doctors SET hospitalName = (%s), hospitalGeolocation = (%s), hospitalCapacity = (%s) WHERE user_account.name = Hospital_ID = (%s)',
+                                                                                   data_dict['hospitalName'],
+                                                                                   data_dict['hospitalGeolocation'],
+                                                                                   data_dict['hospitalCapacity'],
+                                                                                   data_dict['hospitalId'])
+
+   mydb.commit()
+   return 'complete'

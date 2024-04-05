@@ -4,76 +4,169 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Healthcare Admin Panel</title>
+    <style>
+        .container {
+            display: flex; 
+            background-color: #f8f8f8; 
+            padding: 20px;
+            margin: 20px;
+            border-radius: 25px;
+            justify-content: center; 
+            gap: 120px;
+        }
+        h1 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 36px; 
+            font-weight: 700; 
+        }
+
+        h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 24px; 
+            font-weight: 400; 
+        }
+        h3 {
+            font-family: 'Monserrat', sans-serif;
+            font-size: 24px; 
+            font-weight: 400;
+        }
+        body {
+            font-family: 'Monserrat', sans-serif;
+            font-size: 16px; 
+            font-weight: 400;
+        }
+        .form {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start; 
+        }
+        .text-box {
+        margin-top: auto; 
+        }
+    </style>
 </head>
 <body>
     <h1>Healthcare Admin Panel</h1>
-    
+    <body style="background-color:#cde0e6;">
+
     <!-- Patients CRUD -->
     <h2>Patients</h2>
-    <form id="patientForm">
-        <label for="patientUID">UID:</label>
-        <input type="text" id="patientUID" name="patientUID"><br>
-        <label for="patientFirstname">First Name:</label>
-        <input type="text" id="patientFirstname" name="patientFirstname"><br>
-        <label for="patientLastname">Last Name:</label>
-        <input type="text" id="patientLastname" name="patientLastname"><br>
-        <label for="patientAge">Age:</label>
-        <input type="number" id="patientAge" name="patientAge"><br>
-        <label for="patientDoctorID">Doctor ID:</label>
-        <input type="text" id="patientDoctorID" name="patientDoctorID"><br>
-        <button type="button" onclick="addPatient()">Add Patient</button>
-    </form>
-    <div id="patientList"></div>
-    <h3>Delete Patient</h3>
-    <form id="deletePatientForm">
-        <label for="deletePatientID">Patient ID:</label>
-        <input type="text" id="deletePatientID" name="deletePatientID"><br>
-        <button type="button" onclick="deletePatient()">Delete Patient</button>
-    </form>
+    <div class="container">
+        <form id="patientForm">
+            <h3>Add Patient</h3>
+            <label for="patientUID">UID:</label>
+            <input type="text" id="patientUID" name="patientUID"><br>
+            <label for="patientFirstname">First Name:</label>
+            <input type="text" id="patientFirstname" name="patientFirstname"><br>
+            <label for="patientLastname">Last Name:</label>
+            <input type="text" id="patientLastname" name="patientLastname"><br>
+            <label for="patientAge">Age:</label>
+            <input type="number" id="patientAge" name="patientAge"><br>
+            <label for="patientDoctorID">Doctor ID:</label>
+            <input type="text" id="patientDoctorID" name="patientDoctorID"><br>
+            <button type="button" onclick="addPatient()">Add Patient</button>
+        </form>
+        <div id="patientList"></div>
+        <form id="deletePatientForm">
+            <h3>Delete Patient</h3>
+            <label for="deletePatientID">Patient ID:</label>
+            <input type="text" id="deletePatientID" name="deletePatientID"><br>
+            <button type="button" onclick="deletePatient()">Delete Patient</button>
+        </form>
+        <div id="PatientUpdate"></div>
+        <form id="updatePatientForm">
+            <h3>Update Patient</h3>
+            <label for="patientUID">UID:</label>
+            <input type="text" id="patientUID" name="patientUID"><br>
+            <label for="patientFirstname">First Name:</label>
+            <input type="text" id="patientFirstname" name="patientFirstname"><br>
+            <label for="patientLastname">Last Name:</label>
+            <input type="text" id="patientLastname" name="patientLastname"><br>
+            <label for="patientAge">Age:</label>
+            <input type="number" id="patientAge" name="patientAge"><br>
+            <label for="patientDoctorID">Doctor ID:</label>
+            <input type="text" id="patientDoctorID" name="patientDoctorID"><br>
+            <button type="button" onclick="updatePatient()">Update Patient</button>
+        </form>
+    </div>
 
     
     <!-- Doctors CRUD -->
     <h2>Doctors</h2>
-    <form id="doctorForm">
-        <label for="doctorID">Doctor ID:</label>
-        <input type="text" id="doctorID" name="doctorID"><br>
-        <label for="doctorFirstname">First Name:</label>
-        <input type="text" id="doctorFirstname" name="doctorFirstname"><br>
-        <label for="doctorLastname">Last Name:</label>
-        <input type="text" id="doctorLastname" name="doctorLastname"><br>
-        <label for="doctorHospitalID">Hospital ID:</label>
-        <input type="text" id="doctorHospitalID" name="doctorHospitalID"><br>
-        <button type="button" onclick="addDoctor()">Add Doctor</button>
-    </form>
-    <div id="doctorList"></div>
-    <h3>Delete Doctor</h3>
-    <form id="deleteDoctorForm">
-        <label for="deleteDoctorID">Doctor ID:</label>
-        <input type="text" id="deleteDoctorID" name="deleteDoctorID"><br>
-        <button type="button" onclick="deleteDoctor()">Delete Doctor</button>
-    </form>
+    <div class="container">
+        <form id="doctorForm">
+            <h3>Add Doctor</h3>
+            <label for="doctorID">Doctor ID:</label>
+            <input type="text" id="doctorID" name="doctorID"><br>
+            <label for="doctorFirstname">First Name:</label>
+            <input type="text" id="doctorFirstname" name="doctorFirstname"><br>
+            <label for="doctorLastname">Last Name:</label>
+            <input type="text" id="doctorLastname" name="doctorLastname"><br>
+            <label for="doctorHospitalID">Hospital ID:</label>
+            <input type="text" id="doctorHospitalID" name="doctorHospitalID"><br>
+            <button type="button" onclick="addDoctor()">Add Doctor</button>
+        </form>
+        <div id="doctorList"></div>
+        <form id="deleteDoctorForm">
+            <h3>Delete Doctor</h3>
+            <label for="deleteDoctorID">Doctor ID:</label>
+            <input type="text" id="deleteDoctorID" name="deleteDoctorID"><br>
+            <button type="button" onclick="deleteDoctor()">Delete Doctor</button>
+        </form>
+        <div id="doctorUp"></div>
+        <form id="updateDoctorForm">
+            <h3>Update Doctor</h3>
+            <label for="doctorID">Doctor ID:</label>
+            <input type="text" id="doctorID" name="doctorID"><br>
+            <label for="doctorFirstname">First Name:</label>
+            <input type="text" id="doctorFirstname" name="doctorFirstname"><br>
+            <label for="doctorLastname">Last Name:</label>
+            <input type="text" id="doctorLastname" name="doctorLastname"><br>
+            <label for="doctorHospitalID">Hospital ID:</label>
+            <input type="text" id="doctorHospitalID" name="doctorHospitalID"><br>
+            <button type="button" onclick="updateDoctor()">Update Doctor</button>
+        </form>    
+    </div>
     
     <!-- Hospitals CRUD -->
     <h2>Hospitals</h2>
-    <form id="hospitalForm">
-        <label for="hospitalID">Hospital ID:</label>
-        <input type="text" id="hospitalID" name="hospitalID"><br>
-        <label for="hospitalCountryID">Country ID:</label>
-        <input type="text" id="hospitalCountryID" name="hospitalCountryID"><br>
-        <label for="hospitalName">Name:</label>
-        <input type="text" id="hospitalName" name="hospitalName"><br>
-        <label for="hospitalGeolocation">Geolocation:</label>
-        <input type="text" id="hospitalGeolocation" name="hospitalGeolocation"><br>
-        <label for="hospitalCapacity">Capacity:</label>
-        <input type="number" id="hospitalCapacity" name="hospitalCapacity"><br>
-        <button type="button" onclick="addHospital()">Add Hospital</button>
-    </form>
-    <h3>Delete Hospital</h3>
-    <form id="deleteHospitalForm">
-        <label for="deleteHospitalID">Hospital ID:</label>
-        <input type="text" id="deleteHospitalID" name="deleteHospitalID"><br>
-        <button type="button" onclick="deleteHospital()">Delete Hospital</button>
-    </form>
+    <div class="container">
+        <form id="hospitalForm">
+            <h3>Add Hospital</h3>
+            <label for="hospitalID">Hospital ID:</label>
+            <input type="text" id="hospitalID" name="hospitalID"><br>
+            <label for="hospitalCountryID">Country ID:</label>
+            <input type="text" id="hospitalCountryID" name="hospitalCountryID"><br>
+            <label for="hospitalName">Name:</label>
+            <input type="text" id="hospitalName" name="hospitalName"><br>
+            <label for="hospitalGeolocation">Geolocation:</label>
+            <input type="text" id="hospitalGeolocation" name="hospitalGeolocation"><br>
+            <label for="hospitalCapacity">Capacity:</label>
+            <input type="number" id="hospitalCapacity" name="hospitalCapacity"><br>
+            <button type="button" onclick="addHospital()">Add Hospital</button>
+        </form>
+        <form id="deleteHospitalForm">
+            <h3>Delete Hospital</h3>
+            <label for="deleteHospitalID">Hospital ID:</label>
+            <input type="text" id="deleteHospitalID" name="deleteHospitalID"><br>
+            <button type="button" onclick="deleteHospital()">Delete Hospital</button>
+        </form>
+        <div id="hospitalUp"></div>
+        <form id="updateHospitalForm">
+            <h3>Update Hospital</h3>
+            <label for="hospitalID">Hospital ID:</label>
+            <input type="text" id="hospitalID" name="hospitalID"><br>
+            <label for="hospitalCountryID">Country ID:</label>
+            <input type="text" id="hospitalCountryID" name="hospitalCountryID"><br>
+            <label for="hospitalName">Name:</label>
+            <input type="text" id="hospitalName" name="hospitalName"><br>
+            <label for="hospitalGeolocation">Geolocation:</label>
+            <input type="text" id="hospitalGeolocation" name="hospitalGeolocation"><br>
+            <label for="hospitalCapacity">Capacity:</label>
+            <input type="number" id="hospitalCapacity" name="hospitalCapacity"><br>
+            <button type="button" onclick="updateHospital()">Update Hospital</button>
+        </form>
+    </div>
 
     <div id="hospitalList"></div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -139,6 +232,12 @@
         });
     }
 
+     // Add a new doctor
+    function updatePatient() {            
+        deletePatient();
+        addPatient();
+    }
+    
         
         // Add a new doctor
         function addDoctor() {
@@ -196,7 +295,14 @@
                 }
             });
         }
-                
+
+        // Add a new doctor
+        function updateDoctor() {
+            deleteDoctor();
+            addDoctor();
+        }
+        
+
         // Add a new hospital
         function addHospital() {
             var hospitalID = document.getElementById("hospitalID").value;
@@ -260,6 +366,12 @@
                     console.error("Error deleting doctor:", error);
                 }
             });
+        }
+
+            // Add a new doctor
+        function updateHospital() {            
+            deleteHospital();
+            addHospital();
         }
     </script>
 </body>
