@@ -78,32 +78,41 @@
             <h1>Patient Portal</h1>
             <div class="patient-info">
                 <h2>Patient Information</h2>
-                <p><strong>Name:</strong> John Doe</p>
-                <p><strong>Age:</strong> 35</p>
-                <p><strong>Gender:</strong> Male</p>
-                <p><strong>DOB:</strong> 01/01/1989</p>
+                <p><strong>Name:</strong> {{user_info.Patient_Name}}</p>
+                <p><strong>Age:</strong> {{user_info.age}}</p>
+                <p><strong>Gender:</strong> n/a</p>
+                <p><strong>DOB:</strong> n/a</p>
             </div>
         </div>
         
         <div class="doctor-info">
             <h3 class="info-title">Doctor Information</h3>
             <ul class="info-list">
-                <li><span>Name:</span> Dr. Jane Smith</li>
-                <li><span>Specialty:</span> Cardiology</li>
-                <li><span>Contact:</span> +123-456-7890</li>
+                <li><span>Name:</span> {{user_info.First_Name}}</li>
+                <li><span>Contact:</span> n/a</li>
             </ul>
         </div>
         
         <div class="hospital-location">
             <h3 class="info-title">Hospital Location</h3>
             <ul class="info-list">
-                <li><span>Name:</span> City Hospital</li>
-                <li><span>Address:</span> 123 Main St, City, Country</li>
-                <li><span>Contact:</span> +987-654-3210</li>
+                <li><span>Name:</span> {{user_info.Name}}</li>
+                <li><span>Address:</span> {{user_info.GeoLocation}}</li>
+                <li><span>Capacity:</span> {{user_info.Capacity}}</li>
+            </ul>
+        </div>
+        <div class="medical-records">
+            <h3 class="info-title">Medical Records</h3>
+            <ul class="info-list">
+                <li><span>Covid Positive:</span> {{user_info.COVID_Positive}}</li>
+                <li><span>Vaccine:</span> {{user_info.Vaccine}}</li>
             </ul>
         </div>
     </div>
+
+    <!-- New section for medical records -->
     
+        
     <div class="footer">
         <p>&copy; 2024 Patient Portal. All rights reserved.</p>
     </div>

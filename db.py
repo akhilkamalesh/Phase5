@@ -34,31 +34,20 @@ def authenticate(mydb, uid, lastname):
          
      return 'None'
 
-# def createpatient(mydb, data):
-#     data_string = data.decode('utf-8')
-#     data_dict = json.loads(data_string)
-#     print(data_dict)
-#     mycursor = mydb.cursor()
 
-#     # Need to add error check to see if it exists in table
 
-#     if(data_dict['patientDoctorID'] == ''):
-#         mycursor.execute("insert into `patients` values (%s, %s, %s, %s, NULL)", (data_dict['patientUID'],
-#                                                                             data_dict['patientFirstname'],
-#                                                                             data_dict['patientLastname'],
-#                                                                             data_dict['patientAge']))
-#         mycursor.execute("select * from `patients`")
-#         for row in mycursor.fetchall():
-#             print(row)
-#     else:
-#         mycursor.execute("insert into `patients` values (%s, %s, %s, %s, %s)", (data_dict['patientUID'],
-#                                                                             data_dict['patientFirstname'],
-#                                                                             data_dict['patientLastname'],
-#                                                                             data_dict['patientAge'],
-#                                                                             data_dict['patientDoctorID']))
-#     mydb.commit()
+def get_user_info(mydb, uid):
+    mycursor = mydb.cursor(dictionary=True)
+    print(uid)
+    mycursor.execute("select p.Patient_ID, p.First_Name as Patient_Name, p.age, d.*, h.*, m.MedRecID, m.COVID_Positive, m.Vaccine from patients p join medical_records m on p.Patient_ID = m.patient_id\
+                     join doctors d on p.doctor_id = d.doctor_id \
+                     join hospitals h on d.hospital_id = h.hospital_id where p.patient_id =  %s", (uid, ))
+    for row in mycursor.fetchall():
+        print(row)
 
-#     return 'complete'
+    return row
+
+
 
 def createentity(mydb, data):
     data_string = data.decode('utf-8')

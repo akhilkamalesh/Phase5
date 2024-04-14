@@ -6,6 +6,8 @@ app = Flask(__name__, template_folder='pages')
 
 mydb = db.connectdatabase()
 
+session = {}
+
 @app.route('/')
 def index():
   return render_template('index.html')
@@ -16,9 +18,11 @@ def submit():
         uid = request.form['uid']
         lastname = request.form['lastname']
         if db.authenticate(mydb, uid, lastname) == 'None':
-           print('inside')
+           print('invalid')
            return index()
         elif db.authenticate(mydb, uid, lastname) == 'Patient':
+           session['uid'] = uid
+           session['lastname'] = lastname
            print('works')
            return portal()
         elif db.authenticate(mydb, uid, lastname) == 'Admin':
@@ -27,7 +31,21 @@ def submit():
         
 @app.route('/portal', methods=['GET'])
 def portal():
-   return render_template('portal.html')
+   if 'uid' in session:
+      uid = session['uid']
+      user_info = db.get_user_info(mydb, uid)
+      print(user_info)
+      if user_info['Vaccine'] == 1:
+         user_info['Vaccine'] = 'True'
+      else:
+         user_info['Vaccine'] = 'False'
+
+      if user_info['COVID_Positive'] == 1:
+         user_info['COVID_Positive'] = 'True'
+      else:
+         user_info['COVID_Positive'] = 'False'
+
+      return render_template('portal.html', user_info = user_info)
 
 @app.route('/admin', methods=['GET'])
 def admin():
