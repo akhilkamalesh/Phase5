@@ -39,7 +39,7 @@ def authenticate(mydb, uid, lastname):
 def get_user_info(mydb, uid):
     mycursor = mydb.cursor(dictionary=True)
     print(uid)
-    mycursor.execute("select p.Patient_ID, p.First_Name as Patient_Name, p.age, d.*, h.*, m.MedRecID, m.COVID_Positive, m.Vaccine from patients p join medical_records m on p.Patient_ID = m.patient_id\
+    mycursor.execute("select p.Patient_ID, p.First_Name as Patient_Name, p.age, d.*, h.*, m.MedRecID, m.COVID_Positive, m.Vaccine, m.positive_date, m.vaccination_date from patients p join medical_records m on p.Patient_ID = m.patient_id\
                      join doctors d on p.doctor_id = d.doctor_id \
                      join hospitals h on d.hospital_id = h.hospital_id where p.patient_id =  %s", (uid, ))
     for row in mycursor.fetchall():
