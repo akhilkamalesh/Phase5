@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doctor Dashboard</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome, Doctor!</h1>
+    <div id="personal_info">
+        <!-- Personal information will be displayed here -->
+    </div>
+    <div id="hospital_info">
+        <!-- Hospital information will be displayed here -->
+    </div>
+    <div id="patients_list">
+        <h2>Patients List</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Age</th>
+                    <th>Gender</th>
+                    <th>Condition</th>
+                </tr>
+            </thead>
+            <tbody id="patients_table">
+                <!-- Patient information will be displayed here -->
+            </tbody>
+        </table>
+    </div>
+    <!-- <script>
+        // Fetch doctor's personal information
+        // Replace the placeholders with actual data
+        var personalInfo = {
+            name: "Dr. John Doe",
+            specialty: "Cardiologist",
+            email: "john.doe@example.com"
+        };
+        document.getElementById("personal_info").innerHTML = `
+            <h2>Personal Information</h2>
+            <p>Name: ${personalInfo.name}</p>
+            <p>Specialty: ${personalInfo.specialty}</p>
+            <p>Email: ${personalInfo.email}</p>
+        `;
+
+        // Fetch hospital information
+        // Replace the placeholders with actual data
+        var hospitalInfo = {
+            name: "General Hospital",
+            address: "123 Main St, Cityville"
+        };
+        document.getElementById("hospital_info").innerHTML = `
+            <h2>Hospital Information</h2>
+            <p>Name: ${hospitalInfo.name}</p>
+            <p>Address: ${hospitalInfo.address}</p>
+        `;
+
+        // Fetch patients list
+        // Replace the placeholders with actual data
+        var patientsList = [
+            { name: "Patient 1", age: 35, gender: "Male", condition: "Heart Disease" },
+            { name: "Patient 2", age: 45, gender: "Female", condition: "Diabetes" },
+            { name: "Patient 3", age: 50, gender: "Male", condition: "High Blood Pressure" }
+        ];
+
+        var patientsTable = document.getElementById("patients_table");
+        patientsList.forEach(patient => {
+            var row = `
+                <tr>
+                    <td>${patient.name}</td>
+                    <td>${patient.age}</td>
+                    <td>${patient.gender}</td>
+                    <td>${patient.condition}</td>
+                </tr>
+            `;
+            patientsTable.innerHTML += row;
+        });
+    </script> -->
+</body>
+</html>
