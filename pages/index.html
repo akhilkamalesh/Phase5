@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login or Sign Up</title>
+    <title>Welcome</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,31 +15,18 @@
             align-items: center;
             height: 100vh;
         }
-        .login-container {
+        .welcome-container {
             background: white;
             padding: 2em;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
             width: 300px;
         }
-        h2 {
+        h1 {
             color: #333;
             font-size: 24px;
-        }
-        .form-group {
-            margin-bottom: 1em;
-        }
-        label {
-            display: block;
-            margin-bottom: 0.5em;
-            color: #666;
-        }
-        input[type="text"],
-        input[type="password"] {
-            width: 100%;
-            padding: 0.8em;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            margin-bottom: 20px;
         }
         button {
             width: 100%;
@@ -51,6 +38,7 @@
             cursor: pointer;
             font-size: 16px;
             text-transform: uppercase;
+            margin-bottom: 10px; 
         }
         button:hover {
             background-color: #4a54e1;
@@ -58,35 +46,10 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Sign In</h2>
-        <form id="login-form" action="/login" method="post">
-            <div class="form-group">
-                <label for="uid">UID:</label>
-                <input type="text" id="uid" name="uid" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn-login">Sign In</button>
-        </form>
-        <h2>Sign Up</h2>
-        <form id="signup-form" action="/signup" method="post">
-            <div class="form-group">
-                <label for="lastname">Last Name:</label>
-                <input type="text" id="lastname" name="lastname" required>
-            </div>
-            <div class="form-group">
-                <label for="uid">UID:</label>
-                <input type="text" id="uid" name="uid" required>
-            </div>
-            <div class="form-group">
-                <label for="password">Password:</label>
-                <input type="password" id="password" name="password" required>
-            </div>
-            <button type="submit" class="btn-signup">Sign Up</button>
-        </form>
+    <div class="welcome-container">
+        <h1>Welcome</h1>
+        <button onclick="location.href='./user_auth'">User Sign In/Sign Up</button>
+        <button onclick="location.href='./doctor_auth'">Doctor Sign In/Sign Up</button>
     </div>
 </body>
 </html>

@@ -11,7 +11,6 @@
             padding: 0;
             background-color: #f7f7f7;
         }
-
         .container {
             max-width: 800px;
             margin: 20px auto;
@@ -20,55 +19,54 @@
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-
         .header {
             display: flex;
             justify-content: space-between;
             align-items: center;
             margin-bottom: 20px;
         }
-
         .patient-info {
             text-align: right;
         }
-
         .patient-info h2 {
             margin-top: 0;
             font-size: 24px;
             color: #333;
         }
-
         .doctor-info, .hospital-location {
             margin-bottom: 30px;
         }
-
         .info-title {
             font-weight: bold;
             color: #333;
             margin-bottom: 10px;
         }
-
         .info-list {
             list-style: none;
             padding: 0;
         }
-
         .info-list li {
             margin-bottom: 5px;
         }
-
         .info-list li:last-child {
             margin-bottom: 0;
         }
-
         .info-list li span {
             font-weight: bold;
         }
-
         .footer {
             text-align: center;
             color: #666;
             margin-top: 50px;
+        }
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
         }
     </style>
 </head>
@@ -76,13 +74,13 @@
     <div class="container">
         <div class="header">
             <h1>Patient Portal</h1>
-            <div class="patient-info">
-                <h2>Patient Information</h2>
-                <p><strong>Name:</strong> {{user_info.Patient_Name}}</p>
-                <p><strong>Age:</strong> {{user_info.age}}</p>
-            </div>
+            <button class="logout-button" onclick="location.href='/logout'">Logout</button>
         </div>
-        
+        <div class="patient-info">
+            <h2>Patient Information</h2>
+            <p><strong>Name:</strong> {{user_info.Patient_Name}}</p>
+            <p><strong>Age:</strong> {{user_info.age}}</p>
+        </div>
         <div class="doctor-info">
             <h3 class="info-title">Doctor Information</h3>
             <ul class="info-list">
@@ -90,7 +88,6 @@
                 <li><span>Contact:</span> {{user_info.Phone_Number}}</li>
             </ul>
         </div>
-        
         <div class="hospital-location">
             <h3 class="info-title">Hospital Location</h3>
             <ul class="info-list">
@@ -108,13 +105,9 @@
                 <li><span>Vaccination Date:</span> {{user_info.vaccination_date}}</li>
             </ul>
         </div>
-    </div>
-
-    <!-- New section for medical records -->
-    
-        
-    <div class="footer">
-        <p>&copy; 2024 Patient Portal. All rights reserved.</p>
+        <div class="footer">
+            <p>&copy; 2024 Patient Portal. All rights reserved.</p>
+        </div>
     </div>
 </body>
 </html>

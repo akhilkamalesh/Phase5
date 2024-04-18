@@ -7,8 +7,8 @@ def connectdatabase():
    mydb = mysql.connector.connect(
     host="localhost",  # or your server's IP address
     user="root",
-    password="Protocol10",
-    database="CS4604"   
+    password="",   #ENTER YOUR PASSWORD                                     
+    database=""    #ENTER YOUR DATABASE NAME
     )
    
    return mydb
@@ -16,17 +16,18 @@ def connectdatabase():
 def querydb(querystr, mydb):
     mycursor = mydb.cursor()
     mycursor.execute(querystr)
-    # for row in mycursor.fetchall():
-    #     print(row)
     return mycursor.fetchall()
 
 def authenticate(mydb, uid, password):
     mycursor = mydb.cursor(dictionary=True)
     hashed_password = sha256(password.encode()).hexdigest()
-    print(hashed_password)
-    mycursor.execute("SELECT * FROM users WHERE uid = %s AND password = %s", (uid, hashed_password))
-    print(mycursor.fetchone())
-    return bool(mycursor.fetchone()) 
+    try:
+        mycursor.execute("SELECT * FROM users WHERE uid = %s AND password = %s", (uid, hashed_password))
+        user = mycursor.fetchone() 
+        print(user)
+        return bool(user)  
+    finally:
+        mycursor.close()
 
 def get_user_info(mydb, uid):
     mycursor = mydb.cursor(dictionary=True)
@@ -96,7 +97,6 @@ def user_exists(mydb, uid, lastname):
     mycursor.execute("SELECT * FROM users WHERE uid = %s AND last_name = %s", (uid, lastname))
     return bool(mycursor.fetchone())
 
-
 def get_doctor_info(mydb, uid):
     mycursor = mydb.cursor(dictionary=True)
     print(uid)
@@ -111,3 +111,35 @@ def get_doctor_info(mydb, uid):
         doctor.append(row)
 
     return {'patients': patients, 'doctors': doctor}
+
+# def authenticate_doctor(mydb, lastname, password):
+#     mycursor = mydb.cursor(dictionary=True)
+#     hashed_password = sha256(password.encode()).hexdigest()
+#     mycursor.execute("SELECT * FROM doctor_auth WHERE lastname = %s AND password_hash = %s", (lastname, hashed_password))
+#     result = mycursor.fetchone()
+#     mycursor.close()
+#     return bool(result)
+
+def authenticate_doctor(mydb, lastname, password):
+    mycursor = mydb.cursor(dictionary=True)
+    hashed_password = sha256(password.encode()).hexdigest()
+    mycursor.execute("SELECT * FROM doctor_auth WHERE lastname = %s AND password_hash = %s", (lastname, hashed_password))
+    result = mycursor.fetchone()
+    mycursor.close()
+    return bool(result)
+
+
+
+def signup_doctor(mydb, doctor_id, lastname, password):
+    hashed_password = sha256(password.encode()).hexdigest()
+    mycursor = mydb.cursor()
+    mycursor.execute("INSERT INTO doctor_auth (doctor_id, lastname, password_hash) VALUES (%s, %s, %s)", (doctor_id, lastname, hashed_password))
+    mydb.commit()
+    mycursor.close()
+
+def doctor_exists(mydb, lastname):
+    mycursor = mydb.cursor()
+    mycursor.execute("SELECT * FROM doctor_auth WHERE lastname = %s", (lastname,))
+    result = mycursor.fetchone()
+    mycursor.close()
+    return bool(result)
