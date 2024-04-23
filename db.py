@@ -8,8 +8,8 @@ def connectdatabase():
    mydb = mysql.connector.connect(
     host="localhost",  # or your server's IP address
     user="root",
-    password="5a6z7N19*",   #ENTER YOUR PASSWORD                                     
-    database="phase4",    #ENTER YOUR DATABASE NAME
+    password="TEMPORARY",   #ENTER YOUR PASSWORD                                     
+    database="TEMPORARY",    #ENTER YOUR DATABASE NAME
     autocommit=True
     )
    
