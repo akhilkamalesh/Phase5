@@ -1,0 +1,23 @@
+Akhil: 
+Set up database connection to the front end of the web application 
+Set up the server we were running the web application on (python flask) 
+Implemented the ADMIN update, delete, insert functionalities for tables doctors, patients, and hospitals 
+Created Ajax functionalities that sent front end input back to the backend 
+
+Faizan: 
+Routed endpoints for user/doctor sign in and signup and admin portal. 
+Implemented admin initial user creation and ability for admin to create other users of type admin. 
+Implemented hashing for passwords and restructured schema to correctly update data.  
+Implemented signup cases for where user already has account or entered invalid credentials. Created demo video 
+
+ 
+Nitya: 
+Helped create the doctor and patient portals and the queries for the tables 
+Designed the GUI for admin form, doctor, and patient portals 
+Helped create tuples for the schema 
+
+Michael: 
+Helped set up and design the tabular HTML views displaying data kept updated by the MySQL Workbench 
+Shown as the Statistical Reports for the Doctors and the Patients (on the portals of the respective roles) 
+Helped design the view for the admin, doctor, and patient portals  
+Set up the Final Report, filled out info about: System Functionality Statistical Reports User Support for each role 

@@ -60,7 +60,6 @@
     </form>
 
 
-    <!-- Patients CRUD -->
     <h2>Patients</h2>
     <div class="container">
         <form id="patientForm">
@@ -102,7 +101,6 @@
     </div>
 
     
-    <!-- Doctors CRUD -->
     <h2>Doctors</h2>
     <div class="container">
         <form id="doctorForm">
@@ -139,7 +137,6 @@
         </form>    
     </div>
     
-    <!-- Hospitals CRUD -->
     <h2>Hospitals</h2>
     <div class="container">
         <form id="hospitalForm">
@@ -228,7 +225,6 @@
             patientID: patientID
         }
         
-        // Send AJAX DELETE request to delete a patient
         $.ajax({
             type: "DELETE",
             url: "/admin",

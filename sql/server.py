@@ -65,18 +65,13 @@ def admin():
 @app.route('/admin', methods=['POST', 'DELETE', 'PUT'])
 def handle_admin():
     if request.method == 'POST':
-        # Access JSON data from a POST request
         data = request.data
         database_module.createentity(mydb, data)
-        # Process the data and return a response
         return "Data is successfully imported"
 
     elif request.method == 'DELETE':
-        # Access JSON data from a DELETE request
         data = request.data
         database_module.deleteentity(mydb, data)
-        # Now you can work with the JSON data
-        # Process the data and return a response
         return "Data is sucessfully deleted!"
     
     elif request.method == 'PUT':

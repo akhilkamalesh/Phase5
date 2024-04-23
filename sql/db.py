@@ -9,7 +9,7 @@ def connectdatabase():
     host="localhost",  # or your server's IP address
     user="root",
     password="TEMPORARY",   #ENTER YOUR PASSWORD                                     
-    database="TEMPORARY",    #ENTER YOUR DATABASE NAME
+    database="phase4",    #ENTER YOUR DATABASE NAME
     autocommit=True
     )
    
@@ -143,7 +143,6 @@ def doctor_exists(mydb, lastname):
 
 def getDocView(mydb, last_name):
     cursor = mydb.cursor()
-    # Example: Fetch data from a table
     cursor.execute("SELECT Doctor_ID FROM doctors WHERE Last_Name = '%s'"%last_name)
     id = cursor.fetchall()
     cursor.execute("SELECT * FROM patients WHERE Doctor_ID = %s"%id[0])
@@ -162,15 +161,12 @@ def getPatientView(mydb, uid):
     user_data = cursor.fetchall()
     cursor.execute("Select * FROM country")
     country_data = cursor.fetchall()
-    # cursor.execute("SELECT * FROM medical_records WHERE Patient_ID = %s"%uid)
-    # medical_records = cursor.fetchall()
     mydb.close()
 
     return country_data, user_data
 
 def getAdminView(mydb, uid):
     cursor = mydb.cursor()
-    # Example: Fetch data from a table
     cursor.execute("SELECT * FROM country")
     data = cursor.fetchall()
     
