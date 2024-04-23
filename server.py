@@ -62,6 +62,29 @@ def portal():
 def admin():
     return render_template('admin.html')
 
+@app.route('/admin', methods=['POST', 'DELETE', 'PUT'])
+def handle_admin():
+    if request.method == 'POST':
+        # Access JSON data from a POST request
+        data = request.data
+        database_module.createentity(mydb, data)
+        # Process the data and return a response
+        return "Data is successfully imported"
+
+    elif request.method == 'DELETE':
+        # Access JSON data from a DELETE request
+        data = request.data
+        database_module.deleteentity(mydb, data)
+        # Now you can work with the JSON data
+        # Process the data and return a response
+        return "Data is sucessfully deleted!"
+    
+    elif request.method == 'PUT':
+        print('inside')
+        data = request.data
+        database_module.updateentity(mydb, data)
+        return "Data is updated"
+
 @app.route('/logout')
 def logout():
     session.pop('uid', None)
@@ -72,9 +95,9 @@ def doctor_login():
     lastname = request.form['lastname']
     password = request.form['password']
     if database_module.authenticate_doctor(mydb, lastname, password):
-        session['doctor_lastname'] = lastname
+        session['lastname'] = lastname
         session['role'] = 'doctor'
-        return redirect(url_for('doctorportal'))
+        return redirect(url_for('doctor_portal', lastname=lastname))
     else:
         return "Incorrect Password or Doctor ID. Try again", 401
 
@@ -97,9 +120,64 @@ def doctor_signup():
 
 @app.route('/doctor_portal', methods=['GET'])
 def doctor_portal():
-    if 'username' in session and session['role'] == 'doctor':
-        return render_template('doctorportal.html')  
-    return redirect(url_for('index'))
+    lastname = request.args['lastname']
+
+    if session['lastname'] == lastname and session['role'] == 'doctor':
+        data, user_data, country_data = database_module.getDocView(mydb, session['lastname'])
+        return render_template('doctorportal.html', data=data, country_data = country_data, user_info = user_data)  
+
+    return "LOGIN FAILD", 400
+
+@app.route('/admin_login', methods=['POST'])
+def admin_login():
+    username = request.form['username']
+    password = request.form['password']
+    if database_module.authenticate_admin(mydb, username, password):
+        session['admin_username'] = username
+        return redirect(url_for('admin_portal'))
+    else:
+        return "Incorrect username or password. Try again", 401
+
+@app.route('/admin_portal', methods=['GET'])
+def admin_portal():
+    if 'admin_username' in session:
+        return render_template('admin.html')
+    else:
+        return redirect(url_for('admin_login_form'))
+
+@app.route('/admin_login_form')
+def admin_login_form():
+    return render_template('admin_login_form.html')
+
+
+@app.route('/create_admin', methods=['POST'])
+def create_admin():
+    if 'admin_username' not in session:
+        return redirect(url_for('admin_login_form'))  
+
+    username = request.form['username']
+    password = request.form['password']
+
+    if database_module.create_admin_user(username, password):
+        return "Admin created successfully!"
+    else:
+        return "Failed to create admin."
+
+
+from hashlib import sha256
+
+@app.route('/change_password', methods=['POST'])
+def change_password():
+    if 'uid' not in session:
+        return redirect(url_for('login'))  
+
+    new_password = request.form['new_password']
+    hashed_password = sha256(new_password.encode()).hexdigest()  
+
+    if database_module.update_password(session['uid'], hashed_password):
+        return "Password changed successfully!"
+    else:
+        return "Failed to change password.", 400
 
 if __name__ == '__main__':
     app.run(debug=True)

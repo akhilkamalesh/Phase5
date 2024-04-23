@@ -2,13 +2,15 @@ import mysql.connector
 import json
 from hashlib import sha256
 
+
 # Connect to MySQL (change password)
 def connectdatabase():
    mydb = mysql.connector.connect(
     host="localhost",  # or your server's IP address
     user="root",
-    password="",   #ENTER YOUR PASSWORD                                     
-    database=""    #ENTER YOUR DATABASE NAME
+    password="5a6z7N19*",   #ENTER YOUR PASSWORD                                     
+    database="phase4",    #ENTER YOUR DATABASE NAME
+    autocommit=True
     )
    
    return mydb
@@ -81,14 +83,16 @@ def deleteentity(mydb, data):
     return 'complete'
 
 def updateentity(mydb, data):
+    print(data)
     data_dict = json.loads(data)
     mycursor = mydb.cursor()
     if data_dict['type'] == 'patient':
+        print('inside')
         mycursor.execute('UPDATE patients SET First_Name = %s, Last_Name = %s, Age = %s, Doctor_ID = %s WHERE Patient_ID = %s', (data_dict['patientFirstname'], data_dict['patientLastname'], data_dict['patientAge'], data_dict['patientDoctorID'], data_dict['patientUID']))
     elif data_dict['type'] == 'doctor':
         mycursor.execute('UPDATE doctors SET First_Name = %s, Last_Name = %s WHERE Doctor_ID = %s', (data_dict['doctorFirstname'], data_dict['doctorLastname'], data_dict['doctorId']))
     elif data_dict['type'] == 'hospital':
-        mycursor.execute('UPDATE hospitals SET Name = %s, Geolocation = %s, Capacity = %s WHERE Hospital_ID = %s', (data_dict['hospitalName'], data_dict['hospitalGeolocation'], data_dict['hospitalCapacity'], data_dict['hospitalId']))
+        mycursor.execute('UPDATE hospitals SET Name = %s, Geolocation = %s, Capacity = %s WHERE Hospital_ID = %s', (data_dict['hospitalName'], data_dict['hospitalGeolocation'], data_dict['hospitalCapacity'], data_dict['hospitalID']))
     mydb.commit()
     return 'complete'
 
@@ -112,13 +116,6 @@ def get_doctor_info(mydb, uid):
 
     return {'patients': patients, 'doctors': doctor}
 
-# def authenticate_doctor(mydb, lastname, password):
-#     mycursor = mydb.cursor(dictionary=True)
-#     hashed_password = sha256(password.encode()).hexdigest()
-#     mycursor.execute("SELECT * FROM doctor_auth WHERE lastname = %s AND password_hash = %s", (lastname, hashed_password))
-#     result = mycursor.fetchone()
-#     mycursor.close()
-#     return bool(result)
 
 def authenticate_doctor(mydb, lastname, password):
     mycursor = mydb.cursor(dictionary=True)
@@ -143,3 +140,78 @@ def doctor_exists(mydb, lastname):
     result = mycursor.fetchone()
     mycursor.close()
     return bool(result)
+
+def getDocView(mydb, last_name):
+    cursor = mydb.cursor()
+    # Example: Fetch data from a table
+    cursor.execute("SELECT Doctor_ID FROM doctors WHERE Last_Name = '%s'"%last_name)
+    id = cursor.fetchall()
+    cursor.execute("SELECT * FROM patients WHERE Doctor_ID = %s"%id[0])
+    data = cursor.fetchall()
+    cursor.execute("Select * FROM doctors WHERE Last_Name = '%s'"%last_name)
+    user_data = cursor.fetchall()
+    cursor.execute("Select * FROM country")
+    country_data = cursor.fetchall()
+    mydb.close()
+    
+    return data, user_data, country_data
+
+def getPatientView(mydb, uid):
+    cursor = mydb.cursor()
+    cursor.execute("Select * FROM patients WHERE Patient_ID = %s"%uid)
+    user_data = cursor.fetchall()
+    cursor.execute("Select * FROM country")
+    country_data = cursor.fetchall()
+    # cursor.execute("SELECT * FROM medical_records WHERE Patient_ID = %s"%uid)
+    # medical_records = cursor.fetchall()
+    mydb.close()
+
+    return country_data, user_data
+
+def getAdminView(mydb, uid):
+    cursor = mydb.cursor()
+    # Example: Fetch data from a table
+    cursor.execute("SELECT * FROM country")
+    data = cursor.fetchall()
+    
+    cursor.execute("Select * FROM patients WHERE Patient_ID = %s"%uid)
+    user_data = cursor.fetchall()
+    mydb.close()
+
+
+def authenticate_admin(mydb, username, password):
+    mycursor = mydb.cursor(dictionary=True)
+    mycursor.execute("SELECT * FROM admin_auth WHERE username = %s AND password_hash = %s", (username, password))
+    result = mycursor.fetchone()
+    mycursor.close()
+    return bool(result)
+
+
+def create_admin_user(username, password):
+    mydb = connectdatabase()
+    mycursor = mydb.cursor()
+    try:
+        mycursor.execute("INSERT INTO admin_auth (username, password_hash) VALUES (%s, %s)", (username, password))
+        mydb.commit()
+        return True
+    except mysql.connector.Error as err:
+        print("Error:", err)
+        return False
+    finally:
+        mycursor.close()
+
+
+def update_password(uid, hashed_password):
+    mydb = connectdatabase()
+    mycursor = mydb.cursor()
+    try:
+        mycursor.execute("UPDATE users SET password = %s WHERE uid = %s", (hashed_password, uid))
+        mydb.commit()
+        return True
+    except mysql.connector.Error as err:
+        print("Error:", err)
+        return False
+    finally:
+        mycursor.close()
+
+

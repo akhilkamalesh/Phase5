@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome</title>
+    <title>Admin Login</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -15,7 +15,7 @@
             align-items: center;
             height: 100vh;
         }
-        .welcome-container {
+        .login-container {
             background: white;
             padding: 2em;
             border-radius: 8px;
@@ -28,9 +28,25 @@
             font-size: 24px;
             margin-bottom: 20px;
         }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #666;
+        }
+        input[type="text"],
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
         button {
             width: 100%;
-            padding: 1em;
+            padding: 10px;
             border: none;
             background-color: #5c67f2;
             color: white;
@@ -38,7 +54,6 @@
             cursor: pointer;
             font-size: 16px;
             text-transform: uppercase;
-            margin-bottom: 10px; 
         }
         button:hover {
             background-color: #4a54e1;
@@ -46,11 +61,19 @@
     </style>
 </head>
 <body>
-    <div class="welcome-container">
-        <h1>Welcome</h1>
-        <button onclick="location.href='./user_auth'">User Sign In/Sign Up</button>
-        <button onclick="location.href='./doctor_auth'">Doctor Sign In/Sign Up</button>
-        <button onclick="location.href='./admin_login_form'">Admin Sign In</button> <!-- Admin login button -->
+    <div class="login-container">
+        <h1>Admin Login</h1>
+        <form action="/admin_login" method="post">
+            <div class="form-group">
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
     </div>
 </body>
 </html>

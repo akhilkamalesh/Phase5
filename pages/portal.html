@@ -105,9 +105,23 @@
                 <li><span>Vaccination Date:</span> {{user_info.vaccination_date}}</li>
             </ul>
         </div>
+
+        <h2>Change Password</h2>
+        <form action="/change_password" method="post">
+            <div class="form-group">
+                <label for="new_password">New Password:</label>
+                <input type="password" id="new_password" name="new_password" required>
+            </div>
+            <button type="submit" class="btn-change-password">Change Password</button>
+        </form>
+
         <div class="footer">
             <p>&copy; 2024 Patient Portal. All rights reserved.</p>
         </div>
+
+        
     </div>
+
+    
 </body>
 </html>

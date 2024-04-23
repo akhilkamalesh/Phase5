@@ -49,6 +49,17 @@
     <h1>Healthcare Admin Panel</h1>
     <body style="background-color:#cde0e6;">
 
+        
+    <form method="post" action="/create_admin">
+        <h3>Create New Admin</h3>
+        <label for="new_admin_username">Username:</label>
+        <input type="text" id="new_admin_username" name="username" required>
+        <label for="new_admin_password">Password:</label>
+        <input type="password" id="new_admin_password" name="password" required>
+        <button type="submit">Create Admin</button>
+    </form>
+
+
     <!-- Patients CRUD -->
     <h2>Patients</h2>
     <div class="container">
@@ -76,16 +87,16 @@
         <div id="PatientUpdate"></div>
         <form id="updatePatientForm">
             <h3>Update Patient</h3>
-            <label for="patientUID">UID:</label>
-            <input type="text" id="patientUID" name="patientUID"><br>
-            <label for="patientFirstname">First Name:</label>
-            <input type="text" id="patientFirstname" name="patientFirstname"><br>
-            <label for="patientLastname">Last Name:</label>
-            <input type="text" id="patientLastname" name="patientLastname"><br>
-            <label for="patientAge">Age:</label>
-            <input type="number" id="patientAge" name="patientAge"><br>
-            <label for="patientDoctorID">Doctor ID:</label>
-            <input type="text" id="patientDoctorID" name="patientDoctorID"><br>
+            <label for="UpatientUID">UID:</label>
+            <input type="text" id="UpatientUID" name="UpatientUID"><br>
+            <label for="UpatientFirstname">First Name:</label>
+            <input type="text" id="UpatientFirstname" name="UpatientFirstname"><br>
+            <label for="UpatientLastname">Last Name:</label>
+            <input type="text" id="UpatientLastname" name="UpatientLastname"><br>
+            <label for="UpatientAge">Age:</label>
+            <input type="number" id="UpatientAge" name="UpatientAge"><br>
+            <label for="UpatientDoctorID">Doctor ID:</label>
+            <input type="text" id="UpatientDoctorID" name="UpatientDoctorID"><br>
             <button type="button" onclick="updatePatient()">Update Patient</button>
         </form>
     </div>
@@ -116,14 +127,14 @@
         <div id="doctorUp"></div>
         <form id="updateDoctorForm">
             <h3>Update Doctor</h3>
-            <label for="doctorID">Doctor ID:</label>
-            <input type="text" id="doctorID" name="doctorID"><br>
-            <label for="doctorFirstname">First Name:</label>
-            <input type="text" id="doctorFirstname" name="doctorFirstname"><br>
-            <label for="doctorLastname">Last Name:</label>
-            <input type="text" id="doctorLastname" name="doctorLastname"><br>
-            <label for="doctorHospitalID">Hospital ID:</label>
-            <input type="text" id="doctorHospitalID" name="doctorHospitalID"><br>
+            <label for="UdoctorID">Doctor ID:</label>
+            <input type="text" id="UdoctorID" name="UdoctorID"><br>
+            <label for="UdoctorFirstname">First Name:</label>
+            <input type="text" id="UdoctorFirstname" name="UdoctorFirstname"><br>
+            <label for="UdoctorLastname">Last Name:</label>
+            <input type="text" id="UdoctorLastname" name="UdoctorLastname"><br>
+            <label for="UdoctorHospitalID">Hospital ID:</label>
+            <input type="text" id="UdoctorHospitalID" name="UdoctorHospitalID"><br>
             <button type="button" onclick="updateDoctor()">Update Doctor</button>
         </form>    
     </div>
@@ -154,16 +165,16 @@
         <div id="hospitalUp"></div>
         <form id="updateHospitalForm">
             <h3>Update Hospital</h3>
-            <label for="hospitalID">Hospital ID:</label>
-            <input type="text" id="hospitalID" name="hospitalID"><br>
-            <label for="hospitalCountryID">Country ID:</label>
-            <input type="text" id="hospitalCountryID" name="hospitalCountryID"><br>
-            <label for="hospitalName">Name:</label>
-            <input type="text" id="hospitalName" name="hospitalName"><br>
-            <label for="hospitalGeolocation">Geolocation:</label>
-            <input type="text" id="hospitalGeolocation" name="hospitalGeolocation"><br>
-            <label for="hospitalCapacity">Capacity:</label>
-            <input type="number" id="hospitalCapacity" name="hospitalCapacity"><br>
+            <label for="UhospitalID">Hospital ID:</label>
+            <input type="text" id="UhospitalID" name="UhospitalID"><br>
+            <label for="UhospitalCountryID">Country ID:</label>
+            <input type="text" id="UhospitalCountryID" name="UhospitalCountryID"><br>
+            <label for="UhospitalName">Name:</label>
+            <input type="text" id="UhospitalName" name="UhospitalName"><br>
+            <label for="UhospitalGeolocation">Geolocation:</label>
+            <input type="text" id="UhospitalGeolocation" name="UhospitalGeolocation"><br>
+            <label for="UhospitalCapacity">Capacity:</label>
+            <input type="number" id="UhospitalCapacity" name="UhospitalCapacity"><br>
             <button type="button" onclick="updateHospital()">Update Hospital</button>
         </form>
     </div>
@@ -232,147 +243,216 @@
         });
     }
 
-     // Add a new doctor
+    // Add a new doctor
     function updatePatient() {            
-        deletePatient();
-        addPatient();
-    }
-    
+        var patientUID = document.getElementById("UpatientUID").value;
+        var patientFirstname = document.getElementById("UpatientFirstname").value;
+        var patientLastname = document.getElementById("UpatientLastname").value;
+        var patientAge = document.getElementById("UpatientAge").value;
+        var patientDoctorID = document.getElementById("UpatientDoctorID").value;
+
+        console.log(patientUID)
         
-        // Add a new doctor
-        function addDoctor() {
-            var doctorID = document.getElementById("doctorID").value;
-            var doctorFirstname = document.getElementById("doctorFirstname").value;
-            var doctorLastname = document.getElementById("doctorLastname").value;
-            var doctorHospitalID = document.getElementById("doctorHospitalID").value;
+        var patientData = {
+            type: "patient",
+            patientUID: patientUID,
+            patientFirstname: patientFirstname,
+            patientLastname: patientLastname,
+            patientAge: patientAge,
+            patientDoctorID: patientDoctorID,
+        };
 
-            var doctorInfo = {
-                type: "doctor", 
-                doctorId: doctorID, 
-                doctorFirstname: doctorFirstname, 
-                doctorLastname: doctorLastname, 
-                doctorHospitalID: doctorHospitalID
-            };
 
-            
-            $.ajax({
+        $.ajax({
             url: "/admin",
-            type: "POST",
+            type: "PUT",
             contentType: "application/json",
-            data: JSON.stringify(doctorInfo),
+            data: JSON.stringify(patientData),
             success: function(response) {
-                console.log("New Doctor Added:", response);
+                console.log("Patient Updated:", response);
             },
             error: function(xhr, status, error) {
-                console.error("Error adding patient:", error);
+                console.error("Patient Updated:", error);
             }
         });
-            // Add doctor to database or perform necessary action
-            
-            console.log("New Doctor Added:", doctorInfo);
+
+        console.log("Patient Updated:", patientData);
+    }
+
+    
+    // Add a new doctor
+    function addDoctor() {
+        var doctorID = document.getElementById("doctorID").value;
+        var doctorFirstname = document.getElementById("doctorFirstname").value;
+        var doctorLastname = document.getElementById("doctorLastname").value;
+        var doctorHospitalID = document.getElementById("doctorHospitalID").value;
+
+        var doctorInfo = {
+            type: "doctor", 
+            doctorId: doctorID, 
+            doctorFirstname: doctorFirstname, 
+            doctorLastname: doctorLastname, 
+            doctorHospitalID: doctorHospitalID
+        };
+
+        
+        $.ajax({
+        url: "/admin",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(doctorInfo),
+        success: function(response) {
+            console.log("New Doctor Added:", response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error adding patient:", error);
         }
+    });
+        // Add doctor to database or perform necessary action
+        
+        console.log("New Doctor Added:", doctorInfo);
+    }
 
-        // Delete a doctor
-        function deleteDoctor() {
-            var doctorID = $("#deleteDoctorID").val();
+    // Delete a doctor
+    function deleteDoctor() {
+        var doctorID = $("#deleteDoctorID").val();
 
-            var doctorData = {
-                type: "doctor",
-                doctorID: doctorID // Corrected variable name here
-            }
-            
-            // Send AJAX DELETE request to delete a doctor
-            $.ajax({
-                type: "DELETE",
-                url: "/admin",
-                contentType: "application/json",
-                data: JSON.stringify(doctorData),
-                success: function(response) {
-                    console.log("Doctor Deleted:", response);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error deleting doctor:", error);
-                }
-            });
-        }
-
-        // Add a new doctor
-        function updateDoctor() {
-            deleteDoctor();
-            addDoctor();
+        var doctorData = {
+            type: "doctor",
+            doctorID: doctorID // Corrected variable name here
         }
         
-
-        // Add a new hospital
-        function addHospital() {
-            var hospitalID = document.getElementById("hospitalID").value;
-            var hospitalCountryID = document.getElementById("hospitalCountryID").value;
-            var hospitalName = document.getElementById("hospitalName").value;
-            var hospitalGeolocation = document.getElementById("hospitalGeolocation").value;
-            var hospitalCapacity = document.getElementById("hospitalCapacity").value;
-
-            var hospitalData = {
-                type: "hospital", 
-                hospitalID: hospitalID, 
-                hospitalCountryID: hospitalCountryID, 
-                hospitalName: hospitalName, 
-                hospitalGeolocation: hospitalGeolocation,
-                hospitalCapacity: hospitalCapacity
-            };
-
-            $.ajax({
+        // Send AJAX DELETE request to delete a doctor
+        $.ajax({
+            type: "DELETE",
             url: "/admin",
-            type: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(doctorData),
+            success: function(response) {
+                console.log("Doctor Deleted:", response);
+            },
+            error: function(xhr, status, error) {
+                console.error("Error deleting doctor:", error);
+            }
+        });
+    }
+
+    // Add a new doctor
+    function updateDoctor() {
+        var doctorID = document.getElementById("UdoctorID").value;
+        var doctorFirstname = document.getElementById("UdoctorFirstname").value;
+        var doctorLastname = document.getElementById("UdoctorLastname").value;
+        var doctorHospitalID = document.getElementById("UdoctorHospitalID").value;
+
+        var doctorInfo = {
+            type: "doctor", 
+            doctorId: doctorID, 
+            doctorFirstname: doctorFirstname, 
+            doctorLastname: doctorLastname, 
+            doctorHospitalID: doctorHospitalID
+        };
+
+        
+        $.ajax({
+        url: "/admin",
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(doctorInfo),
+        success: function(response) {
+            console.log("Doctor Updated:", response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Doctor Updated::", error);
+        }
+    });
+    }
+    
+
+    // Add a new hospital
+    function addHospital() {
+        var hospitalID = document.getElementById("hospitalID").value;
+        var hospitalCountryID = document.getElementById("hospitalCountryID").value;
+        var hospitalName = document.getElementById("hospitalName").value;
+        var hospitalGeolocation = document.getElementById("hospitalGeolocation").value;
+        var hospitalCapacity = document.getElementById("hospitalCapacity").value;
+
+        var hospitalData = {
+            type: "hospital", 
+            hospitalID: hospitalID, 
+            hospitalCountryID: hospitalCountryID, 
+            hospitalName: hospitalName, 
+            hospitalGeolocation: hospitalGeolocation,
+            hospitalCapacity: hospitalCapacity
+        };
+
+        $.ajax({
+        url: "/admin",
+        type: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(hospitalData),
+        success: function(response) {
+            console.log("New Hospital Added:", response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error adding hospital:", error);
+        }
+    });
+    }
+
+    // Delete a patient
+    function deleteHospital() {
+        var hospitalId = $("#deleteHospitalID").val();
+
+        var hospitalData = {
+            type: "hospital",
+            hospitalId: hospitalId
+        }
+        
+        // Send AJAX DELETE request to delete a patient
+        $.ajax({
+            type: "DELETE",
+            url: "/admin",
             contentType: "application/json",
             data: JSON.stringify(hospitalData),
             success: function(response) {
-                console.log("New Hospital Added:", response);
+                console.log("Hospital Deleted:", response);
             },
             error: function(xhr, status, error) {
-                console.error("Error adding hospital:", error);
+                console.error("Error deleting doctor:", error);
             }
         });
-            
-            // Add hospital to database or perform necessary action
-            
-            console.log("New Hospital Added:", {
-                Hospital_ID: hospitalID,
-                Country_ID: hospitalCountryID,
-                Name: hospitalName,
-                Geolocation: hospitalGeolocation,
-                Capacity: hospitalCapacity
-            });
-        }
+    }
 
-        // Delete a patient
-        function deleteHospital() {
-            var hospitalId = $("#deleteHospitalID").val();
+        // Add a new doctor
+    function updateHospital() {            
+        var hospitalID = document.getElementById("UhospitalID").value;
+        var hospitalCountryID = document.getElementById("UhospitalCountryID").value;
+        var hospitalName = document.getElementById("UhospitalName").value;
+        var hospitalGeolocation = document.getElementById("UhospitalGeolocation").value;
+        var hospitalCapacity = document.getElementById("UhospitalCapacity").value;
 
-            var hospitalData = {
-                type: "hospital",
-                hospitalId: hospitalId
-            }
-            
-            // Send AJAX DELETE request to delete a patient
-            $.ajax({
-                type: "DELETE",
-                url: "/admin",
-                contentType: "application/json",
-                data: JSON.stringify(hospitalData),
-                success: function(response) {
-                    console.log("Hospital Deleted:", response);
-                },
-                error: function(xhr, status, error) {
-                    console.error("Error deleting doctor:", error);
-                }
-            });
-        }
+        var hospitalData = {
+            type: "hospital", 
+            hospitalID: hospitalID, 
+            hospitalCountryID: hospitalCountryID, 
+            hospitalName: hospitalName, 
+            hospitalGeolocation: hospitalGeolocation,
+            hospitalCapacity: hospitalCapacity
+        };
 
-            // Add a new doctor
-        function updateHospital() {            
-            deleteHospital();
-            addHospital();
+        $.ajax({
+        url: "/admin",
+        type: "PUT",
+        contentType: "application/json",
+        data: JSON.stringify(hospitalData),
+        success: function(response) {
+            console.log("New Hospital Added:", response);
+        },
+        error: function(xhr, status, error) {
+            console.error("Error adding hospital:", error);
         }
+    });
+    }
     </script>
 </body>
 </html>

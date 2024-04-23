@@ -4,92 +4,199 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Doctor Dashboard</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Dosis:wght@200..800&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <style>
+/* .dosis-font {
+  font-family: "Dosis", sans-serif;
+  font-weight: 600;
+  font-style: normal;
+}
+.oswald-font> {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+} */
+h1 {
+    font-family: Dosis;
+  font-size: 55px;
+  font-weight: 600;
+  background-image: linear-gradient(to left, #3c699a, #93a7d3);
+  color: transparent;
+  background-clip: text;
+  margin-top: 0;
+}
+h2{
+    font-family: Oswald, sans-serif;
+    font-weight: 300;
+    margin-top: 10;
+    margin-right: 10;
+    margin-left: 10;
+} 
+ h3{
+    font-family: Oswald, sans-serif;
+    font-weight: 500;
+    margin-top: 10;
+    margin-right: 10;
+    margin-left: 100;
+    padding-left: 100;
+    align-items: center;
+}
+        div{
+        margin-left: auto;
+        margin-right: auto;
+        }
         table {
-            border-collapse: collapse;
-            width: 100%;
+    border-spacing: 0;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    margin-left: auto;
+        margin-right: auto;
+}
+.tcontainer{
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        th, td {
-            border: 1px solid #dddddd;
-            text-align: left;
-            padding: 8px;
+thead tr {
+    
+    background-color: #5d86c8;
+    color: #ffffff;
+    text-align: left;
+}
+th, td {
+    padding: 12px 15px;
+}
+tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+tbody tr:last-of-type {
+    border-bottom: 2px solid #2581c8;
+}
+tr:hover {
+    background-color: rgb(136, 136, 136); 
+}
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: linear-gradient(to left, #cedbfb, #fefcff);
+
         }
-        th {
-            background-color: #f2f2f2;
+        .flex-container {
+            max-width: 800px;
+            margin: 20px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        .patient-info {
+            text-align: right;
+        }
+        .patient-info h2 {
+            margin-top: 0;
+            font-size: 24px;
+            color: #333;
+        }
+        .doctor-info, .hospital-location {
+            margin-bottom: 30px;
+        }
+        .info-title {
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .info-list {
+            list-style: none;
+            padding: 0;
+        }
+        .info-list li {
+            margin-bottom: 5px;
+        }
+        .info-list li:last-child {
+            margin-bottom: 0;
+        }
+        .info-list li span {
+            font-weight: bold;
+        }
+        .footer {
+            text-align: center;
+            color: #666;
+            margin-top: 50px;
+        }
+        .logout-button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+            align-self: flex-end;
+
+    margin: -20px -50px; 
+    position:relative;
+    top:50%; 
+    left:90%;
         }
     </style>
 </head>
 <body>
-    <h1>Welcome, Doctor!</h1>
-    <div id="personal_info">
-        <!-- Personal information will be displayed here -->
-    </div>
-    <div id="hospital_info">
-        <!-- Hospital information will be displayed here -->
-    </div>
-    <div id="patients_list">
-        <h2>Patients List</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Age</th>
-                    <th>Gender</th>
-                    <th>Condition</th>
-                </tr>
-            </thead>
-            <tbody id="patients_table">
-                <!-- Patient information will be displayed here -->
-            </tbody>
-        </table>
-    </div>
-    <!-- <script>
-        // Fetch doctor's personal information
-        // Replace the placeholders with actual data
-        var personalInfo = {
-            name: "Dr. John Doe",
-            specialty: "Cardiologist",
-            email: "john.doe@example.com"
-        };
-        document.getElementById("personal_info").innerHTML = `
-            <h2>Personal Information</h2>
-            <p>Name: ${personalInfo.name}</p>
-            <p>Specialty: ${personalInfo.specialty}</p>
-            <p>Email: ${personalInfo.email}</p>
-        `;
 
-        // Fetch hospital information
-        // Replace the placeholders with actual data
-        var hospitalInfo = {
-            name: "General Hospital",
-            address: "123 Main St, Cityville"
-        };
-        document.getElementById("hospital_info").innerHTML = `
-            <h2>Hospital Information</h2>
-            <p>Name: ${hospitalInfo.name}</p>
-            <p>Address: ${hospitalInfo.address}</p>
-        `;
+    <h3>COVID-19 Data Tracker</h3>
 
-        // Fetch patients list
-        // Replace the placeholders with actual data
-        var patientsList = [
-            { name: "Patient 1", age: 35, gender: "Male", condition: "Heart Disease" },
-            { name: "Patient 2", age: 45, gender: "Female", condition: "Diabetes" },
-            { name: "Patient 3", age: 50, gender: "Male", condition: "High Blood Pressure" }
-        ];
+    <div class="flex-container">
+    <h1>Doctor Portal</h1>
+    <button class="logout-button" onclick="location.href='/logout'">Logout</button>
+    <h2><Strong>Welcome, Dr. {{user_info[0][2]}} </Strong></h2>
+    <div>
+    <h2>Your Patients</h2>
 
-        var patientsTable = document.getElementById("patients_table");
-        patientsList.forEach(patient => {
-            var row = `
-                <tr>
-                    <td>${patient.name}</td>
-                    <td>${patient.age}</td>
-                    <td>${patient.gender}</td>
-                    <td>${patient.condition}</td>
-                </tr>
-            `;
-            patientsTable.innerHTML += row;
-        });
-    </script> -->
+    <table id="data">
+        <thead>
+          <tr>
+            <th>Patient ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in data %}
+            <tr>
+              <td>{{ row[0] }}</td>
+              <td>{{ row[1] }}</td>
+              <td>{{ row[2] }}</td>
+              <td>{{ row[3] }}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+</div>
 </body>
 </html>
